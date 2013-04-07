@@ -8,11 +8,6 @@
  * If you are using Composer, you can skip this step.
  */
 require 'Slim/Slim.php';
-require_once "pusher-php-server/lib/Pusher.php";
-$app_key = '6d6e276b32c15e5e131c';
-$app_secret = '2adf155d7261b759d446';
-$app_id = '34650';
-$pusher = new Pusher($app_key, $app_secret, $app_id);
 
 \Slim\Slim::registerAutoloader();
 
