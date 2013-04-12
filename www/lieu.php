@@ -52,7 +52,7 @@
 
 
 	function get_status() {
-		timeOut = setTimeout('get_status()', 5000);//It calls itself every 200ms
+		timeOut = setTimeout('get_status()', 2000);//It calls itself every 200ms
 		get_tap_status();
 	}
 
