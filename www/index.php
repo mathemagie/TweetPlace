@@ -8,7 +8,7 @@
  * If you are using Composer, you can skip this step.
  */
 require 'Slim/Slim.php';
-require 'pusher-php-server/lib/Pusher.php';
+require 'pusher-php-server-master/lib/Pusher.php';
 
 \Slim\Slim::registerAutoloader();
 
