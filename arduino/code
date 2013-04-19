@@ -3,14 +3,16 @@
 #include <Ethernet.h>
 #include <SPI.h>
 
+int ledPin = 8; // LED pin
+#define BUTTON 7
+
 ////////////////////////////////////////////////////////////////////////
 //CONFIGURE
 ////////////////////////////////////////////////////////////////////////
 byte server[] = {213, 251, 166, 71};
 
 //The location to go to on the server
-//make sure to keep HTTP/1.0 at the end, this is telling it what type
-of file it is
+//make sure to keep HTTP/1.0 at the end, this is telling it what type of file it i
 String location = "/open HTTP/1.0";
 
 // if need to change the MAC address (Very Rare)
@@ -19,8 +21,10 @@ byte mac[] = { 0x00, 0xAA, 0xBB, 0xCC, 0xDE, 0x02 };
 
 String data;
 
-#define BUTTON 7
 int val_bouton = 0;
+int start_val_bouton;
+int icpt = 0;
+
 
 EthernetClient client;
 
@@ -33,18 +37,36 @@ void setup(){
   Ethernet.begin(mac);
   Serial.begin(9600);
   pinMode(BUTTON, INPUT);
+  pinMode(ledPin, OUTPUT);
+  start_val_bouton = digitalRead(BUTTON);
 }
 
 void loop(){
-  String pageValue = connectAndRead(); //connect to the server and
-read the output
+ // Serial.println(start_val_bouton);
+// if (icpt == 0)
+ //connectAndRead(); //connect to the server and  
+ icpt = icpt + 1;
+  val_bouton = digitalRead(BUTTON);
+  if (val_bouton !=start_val_bouton ) {
+      pushStatus();
+      start_val_bouton = val_bouton;
+ }
+ // Serial.println(val_bouton);
+  // led_ = digitalRead(ledPin);
+    if (val_bouton == HIGH) {
+       digitalWrite(ledPin, LOW);
+    }else {
+       digitalWrite(ledPin, HIGH);
+    }
+    // Serial.println(led_);
+
 
  // Serial.println(pageValue); //print out the findings.
 
-  delay(5000); //wait 5 seconds before connecting again
+  delay(1000); //wait 5 seconds before connecting again
 }
 
-String connectAndRead(){
+String pushStatus(){
   //connect to the server
 
   Serial.println("connecting...");
@@ -54,13 +76,18 @@ String connectAndRead(){
     Serial.println("connected");
     val_bouton = digitalRead(BUTTON);
     Serial.println("valeur du bouton");
+   // led_ = digitalRead(ledPin);
     if (val_bouton == HIGH) {
       Serial.println( "DOWN" );
       data = "status=0";
+     
     }else {
-       Serial.println( "UO" );
-       data = "status=1";
+       Serial.println( "UP" );
+        data = "status=1";
+ 
     }
+    
+   
 
     Serial.println( data );
     client.println( "POST /s HTTP/1.1" );
