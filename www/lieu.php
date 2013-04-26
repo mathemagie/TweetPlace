@@ -34,36 +34,24 @@
     </script>
  
   
-  <script type="text/javascript">
+      <script type="text/javascript">
+        function get_tap_status() {
+           $.getJSON('http://api.la-tapisserie.net/v1/open',function(data){
+             if (data.open == 1) {
+                    $('#status_tapisserie').css('background','#33FF00');
+              }else {
+                    $('#status_tapisserie').css('background','red');
+              }
+       
+            });
+       }
 
-	function get_tap_status() {
-	   $.ajax({
-	    url : '/status',
-	    success : function(data){
-		      if (data == 1) {
-				  $('#status_tapisserie').css('background','#33FF00');
-		    }else {
-				 $('#status_tapisserie').css('background','red');
-		     }
+      	$(document).ready(function() {
+      		get_tap_status();
+      	});
+        </script>
 
-	    } //votre callback
-	      });
-	}
-
-
-	function get_status() {
-		timeOut = setTimeout('get_status()', 2000);//It calls itself every 200ms
-		get_tap_status();
-	}
-
-	$(document).ready(function() {
-		//get_status();
-	});
-
-
-
-  </script>
-    <script src="http://js.pusher.com/2.0/pusher.min.js" type="text/javascript"></script>
+<script src="http://js.pusher.com/2.0/pusher.min.js" type="text/javascript"></script>
   <script type="text/javascript">
     // Enable pusher logging - don't include this in production
     Pusher.log = function(message) {
