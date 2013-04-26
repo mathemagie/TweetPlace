@@ -23,7 +23,7 @@ $app->get('/status', function () {
 	$filename = "./status.txt";
 	$handle = fopen($filename, "r");
 	$contents = fread($handle, filesize($filename));
-	$arr = array('open' => $contents);
+	$arr = array('open' => rtrim($contents));
     echo json_encode($arr);
 
 	//echo $contents;
