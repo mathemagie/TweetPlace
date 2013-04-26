@@ -18,7 +18,7 @@ EOT;
     echo $template;
 });
 
-$app->get('/status', function () {
+$app->get('/v1/open', function () {
 	header("Access-Control-Allow-Origin: *");
 	$filename = "./status.txt";
 	$handle = fopen($filename, "r");
