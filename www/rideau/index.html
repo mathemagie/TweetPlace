@@ -1,0 +1,113 @@
+
+<!DOCTYPE html><html>
+  <head>
+    <meta charset="utf-8">
+    <title>La Tapisserie</title>
+    <link href="index.css" rel="stylesheet">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  
+     <script type="text/javascript">
+        function get_tap_status() {
+           $.getJSON('http://api.la-tapisserie.net/v1/open',function(data){
+//            alert(data.open);
+             if (data.open == 1) {
+                   // $('#status_tapisserie').html(data.open);
+                   $("#status").attr("src","IMG_0690.jpg");
+              }else {
+                    //$('#status_tapisserie').html(data.open);
+                     $("#status").attr("src","IMG_0695.jpg");
+              }
+       
+            });
+       }
+
+      
+        </script>
+
+<script src="http://js.pusher.com/2.0/pusher.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+
+  var images = [];
+  var i;
+      
+
+    images[0] = "IMG_0690.jpg";
+    images[1] = "IMG_0691.jpg";
+    images[2] = "IMG_0692.jpg";
+    images[3] = "IMG_0693.jpg";
+    images[4] = "IMG_0694.jpg";
+    images[5] = "IMG_0695.jpg";
+
+    function close_tapisserie() {
+        var exempleTimeout = setTimeout(changePhotoToClose(),1000);
+     }
+
+     function open_tapisserie() {
+        var exempleTimeout = setTimeout(changePhotoToOpen(),1000);
+     }
+
+  function changePhotoToClose() {
+       $("#status").attr("src",images[i]);
+       console.log('change photo' + i );
+      i = i + 1; 
+       exempleTimeout = setTimeout("changePhotoToClose()", 1000); 
+       
+        if(i > 5){ 
+           window.clearTimeout(exempleTimeout); 
+       } 
+    }
+
+     function changePhotoToOpen() {
+       $("#status").attr("src",images[i]);
+       console.log('change photo' + i );
+      i = i - 1; 
+       exempleTimeout = setTimeout("changePhotoToOpen()", 1000); 
+       
+        if(i < 0){ 
+           window.clearTimeout(exempleTimeout); 
+       } 
+    }
+
+      $(document).ready(function() {
+          get_tap_status();
+//          var exempleTimeout = setTimeout("changePhoto()",1000);
+        });
+
+
+
+  
+    // Enable pusher logging - don't include this in production
+    Pusher.log = function(message) {
+      if (window.console && window.console.log) window.console.log(message);
+    };
+
+    // Flash fallback logging - don't include this in production
+    WEB_SOCKET_DEBUG = true;
+
+    var pusher = new Pusher('15b20d20432e58d9debf');
+    var channel = pusher.subscribe('tapisserie');
+    channel.bind('is_open', function(data) {
+        console.log(data);
+        if (data == 1) {
+            i= 4;
+//            $("#status").attr("src","IMG_0690.jpg");
+            open_tapisserie();
+             // open_tapisserie();
+        }else {
+//              $("#status").attr("src","IMG_0695.jpg");
+              i = 1;
+              close_tapisserie()
+        }
+    });
+  </script>
+
+  </head>
+  <body>
+    <div id="pano_container">
+      <div id="pano" style="width: 100%; height: 700px"></div>
+    </div>
+    <div id="status_tapisserie"><img id='status' src=''></div>
+  </body>
+</html>
+
