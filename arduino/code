@@ -9,7 +9,7 @@ int ledPin = 8; // LED pin
 ////////////////////////////////////////////////////////////////////////
 //CONFIGURE
 ////////////////////////////////////////////////////////////////////////
-byte server[] = {213, 251, 166, 71};
+byte server[] = {5, 135, 188, 103};
 
 //The location to go to on the server
 //make sure to keep HTTP/1.0 at the end, this is telling it what type of file it i
