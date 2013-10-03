@@ -42,9 +42,9 @@ $app->post('/s', function () {
 	$new_status = $_POST['status'];
 
 	if ($new_status) {
-		$s = tweet('TEST : la_tapisserie.open()');
+		$s = tweet('la_tapisserie.open()');
 	}else {
-		$s = tweet('TEST : la_tapisserie.close()');
+		$s = tweet('la_tapisserie.close()');
 	}
 
 	if (1) {
