@@ -45,7 +45,7 @@ $app->post('/s', function () {
 	fclose($handle);
 	$new_status = $_POST['status'];
 
-	$s = tweet('la_tapisserie status : ' . $new_status);
+	$s = tweet( time() . ' = la_tapisserie status : ' . $new_status);
 
 	if (1) {
 		if ($new_status != $current_status) {//send push only a on new status
