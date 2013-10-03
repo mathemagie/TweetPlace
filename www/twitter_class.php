@@ -15,11 +15,11 @@ function tweet($message) {
  
 	if ($tmhOAuth->response['code'] == 200) {
 	// En cours de dév, afficher les informations retournées :
-		 echo htmlentities($tmhOAuth->response['response']);
+		 //echo htmlentities($tmhOAuth->response['response']);
 		return TRUE;
 	} else {
 	// En cours de dév, afficher les informations retournées :
-		echo htmlentities($tmhOAuth->response['response']);
+		//echo htmlentities($tmhOAuth->response['response']);
 		return FALSE;
 	}
 }
