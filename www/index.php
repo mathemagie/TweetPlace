@@ -14,7 +14,9 @@ $pusher = new Pusher( $app_key, $app_secret, $app_id );
 // GET route
 $app->get('/', function () {
     $template = <<<EOT
-API la-tapisserie.net 
+API la-tapisserie.net <br/><br/>
+
+<a href="/v1/open">La Tapisserie est-elle ouverte ? oui/non </a>
 EOT;
     echo $template;
 });
