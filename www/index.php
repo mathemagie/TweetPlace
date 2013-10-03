@@ -1,6 +1,7 @@
 <?php
 require 'Slim/Slim.php';
 require 'pusher-php-server-master/lib/Pusher.php';
+require 'twitter_class.php';
 
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
@@ -39,6 +40,12 @@ $app->post('/s', function () {
 	$current_status = fread($handle, filesize($filename));
 	fclose($handle);
 	$new_status = $_POST['status'];
+
+	if ($new_status) {
+		$s = tweet('TEST : la_tapisserie.open()');
+	}else {
+		$s = tweet('TEST : la_tapisserie.close()');
+	}
 
 	if (1) {
 		if ($new_status != $current_status) {//send push only a on new status
