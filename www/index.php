@@ -45,11 +45,7 @@ $app->post('/s', function () {
 	fclose($handle);
 	$new_status = $_POST['status'];
 
-	if ($new_status) {
-		$s = tweet('la_tapisserie.open()');
-	}else {
-		$s = tweet('la_tapisserie.close()');
-	}
+	$s = tweet('la_tapisserie status : ' . $new_status);
 
 	if (1) {
 		if ($new_status != $current_status) {//send push only a on new status
