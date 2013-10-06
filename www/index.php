@@ -18,7 +18,7 @@ API la-tapisserie.net <br/><br/>
 
 <a href="/v1/open">La Tapisserie est-elle ouverte ? oui/non </a><br><br/>
 <a href="/rideau/index.html">Le fameux rideau :)</a><br><br/>
-<a href="/lieu.php">Sur Google Map</a><br><br/>
+<a href="/rideau/lieu.php">Sur Google Map</a><br><br/>
 EOT;
     echo $template;
 });
