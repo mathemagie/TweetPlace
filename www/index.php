@@ -44,8 +44,11 @@ $app->post('/s', function () {
 	$current_status = fread($handle, filesize($filename));
 	fclose($handle);
 	$new_status = $_POST['status'];
+	$st = intval($new_status);
+	$tweet_message = get_message_to_tweet($st);
+	$s = tweet( addslashes($tweet_message));
 
-	$s = tweet( time() . ' = la_tapisserie status : ' . $new_status);
+//	$s = tweet( time() . ' = la_tapisserie status : ' . $new_status);
 
 	if (1) {
 		if ($new_status != $current_status) {//send push only a on new status
@@ -54,7 +57,7 @@ $app->post('/s', function () {
 		$fp = fopen('./status.txt', 'w+');
 		fwrite($fp, $new_status);
 		fclose($fp);
-		 echo 'Set status for la tapisserie : ' . $new_status;
+		echo 'Set status for la tapisserie : ' . $new_status;
 	  }
 });
 
