@@ -1,5 +1,27 @@
 <?php
 
+
+function get_current_status() {
+	try {
+		$filename = "./status.txt";
+		$handle = @fopen($filename, "r");
+		return fread($handle, filesize($filename));
+		fclose($handle);
+	} catch (Exception $e) {
+	    echo 'Exception reçue : ',  $e->getMessage(), "\n";
+	}
+}
+
+function set_current_status($status) {
+	try {
+		$fp = fopen('./status.txt', 'w+');
+		fwrite($fp, $status);
+		fclose($fp);
+	} catch (Exception $e) {
+	    echo 'Exception reçue : ',  $e->getMessage(), "\n";
+	}
+}
+
 function get_message_to_tweet($status) {
 
 	$open[] = 'Ohlalala, la Tapisserie est “ouverte” et il y a plein de chips à manger.';

@@ -25,40 +25,29 @@ EOT;
 
 $app->get('/v1/open', function () {
 	header("Access-Control-Allow-Origin: *");
-	$filename = "./status.txt";
-	$handle = fopen($filename, "r");
-	$contents = fread($handle, filesize($filename));
-	$arr = array('open' => rtrim($contents));
+	$current_status = get_current_status();
+	$arr = array('open' => rtrim($current_status));
     echo json_encode($arr);
-
-	//echo $contents;
-	fclose($handle);
 });
 
 // POST route
 $app->post('/s', function () {
 	global $pusher;
 
-	$filename = "./status.txt";
-	$handle = fopen($filename, "r");
-	$current_status = fread($handle, filesize($filename));
-	fclose($handle);
+	$current_status = get_current_status();
 	$new_status = $_POST['status'];
+
 	$st = intval($new_status);
 	$tweet_message = get_message_to_tweet($st);
-	$s = tweet( addslashes($tweet_message));
+	if (0) $s = tweet( addslashes($tweet_message));
 
 //	$s = tweet( time() . ' = la_tapisserie status : ' . $new_status);
 
-	if (1) {
-		if ($new_status != $current_status) {//send push only a on new status
-			$pusher->trigger( 'tapisserie', 'is_open', $new_status );
-		}
-		$fp = fopen('./status.txt', 'w+');
-		fwrite($fp, $new_status);
-		fclose($fp);
-		echo 'Set status for la tapisserie : ' . $new_status;
-	  }
+	if ($new_status != $current_status) {//send push only a on new status
+		$pusher->trigger( 'tapisserie', 'is_open', $new_status );
+	}
+	set_current_status($new_status);
+	echo 'Set status for la tapisserie : ' . $new_status;
 });
 
 $app->run();
