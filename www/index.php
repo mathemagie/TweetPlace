@@ -1,7 +1,7 @@
 <?php
 require 'Slim/Slim.php';
 require 'pusher-php-server-master/lib/Pusher.php';
-require 'twitter_class.php';
+require 'api_class.php';
 
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
