@@ -1,6 +1,4 @@
 <?php
-
-
 function get_current_status() {
 	try {
 		$filename = "./status.txt";
@@ -51,16 +49,12 @@ function tweet($message) {
 	));
  
 	$tmhOAuth->request('POST', $tmhOAuth->url('1.1/statuses/update'), array(
-		'status' => utf8_encode($message)
+		'status' => $message
 	));
  
 	if ($tmhOAuth->response['code'] == 200) {
-	// En cours de dév, afficher les informations retournées :
-		 //echo htmlentities($tmhOAuth->response['response']);
 		return TRUE;
 	} else {
-	// En cours de dév, afficher les informations retournées :
-		//echo htmlentities($tmhOAuth->response['response']);
 		return FALSE;
 	}
 }

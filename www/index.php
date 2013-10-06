@@ -36,11 +36,10 @@ $app->post('/s', function () {
 
 	$current_status = get_current_status();
 	$new_status = $_POST['status'];
-
 	$st = intval($new_status);
-	$tweet_message = get_message_to_tweet($st);
-	if (0) $s = tweet( addslashes($tweet_message));
 
+	$tweet_message = get_message_to_tweet($st);
+	if (1) $s = tweet( $tweet_message);
 //	$s = tweet( time() . ' = la_tapisserie status : ' . $new_status);
 
 	if ($new_status != $current_status) {//send push only a on new status
