@@ -25,6 +25,7 @@ function get_message_to_tweet($status) {
 	$open[] = 'Ohlalala, la Tapisserie est “ouverte” et il y a plein de chips à manger.';
 	$open[] = 'Ohlalala, la Tapisserie est “ouverte” à cette heure incongrue. Qu’on se le dise';
 	$open[] = 'Ohlalala, la Tapisserie est “ouverte” et les bulles nous manquent. Perrier ou Champagne are welcome!';
+	$open[] = 'Ohlalala, la Tapisserie est “ouverte” et la couleur du ciel se précise par ici... et tend vers le bleu Klein.';
 
 	$close[] = 'Ohlalala, la Tapisserie est “fermée” et il y a plus de chips à manger.';
 	$close[] = 'Ohlalala, la Tapisserie est “fermée” à cette heure incongrue. Qu’on se le dise.';
