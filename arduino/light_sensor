@@ -7,9 +7,9 @@ unsigned int sensorValue = 0;
 
 void setup() 
 {
-	Bridge.begin();
+        Bridge.begin();
         pinMode(led, OUTPUT); 
-	Serial.begin(9600);
+        Serial.begin(9600);
         
 }
 
@@ -17,8 +17,11 @@ void runCurl() {
   // Launch "curl" command and get Arduino ascii art logo from the network
   // curl is command line program for transferring data using different internet protocols
   Process p;        // Create a process and call it "p"
-  p.begin("curl");  // Process that launch the "curl" command
-  p.addParameter("http://mathemagie.net/coucou"); // Add the URL parameter to "curl"
+ // p.begin("curl");  // Process that launch the "curl" command
+  //
+   p.runShellCommand("curl -d 'status=1&debug=1'  http://api.la-tapisserie.net/s");
+  //p.addParameter("http://mathemagie.net/coucou"); // Add the URL parameter to "curl"
+ // p.addParameter("-d 'status=1&debug=1'  http://api.la-tapisserie.net/s"); // Add the URL parameter to "curl"
   p.run();      // Run the process and wait for its termination
 
   // Print arduino logo over the Serial
@@ -33,15 +36,15 @@ void runCurl() {
 
 void loop() 
 {
-	sensorValue = analogRead(sensorPin); 
-	if(sensorValue<400) {
+        sensorValue = analogRead(sensorPin); 
+        if(sensorValue<400) {
                runCurl();
-		digitalWrite(led, HIGH);
-	}
-	else {
-		digitalWrite(led, LOW);
-	}
+                digitalWrite(led, LOW);
+        }
+        else {
+                digitalWrite(led,HIGH );
+        }
 
-	Serial.println(sensorValue, DEC);
-	delay(500);
+        Serial.println(sensorValue, DEC);
+        delay(500);
 }
