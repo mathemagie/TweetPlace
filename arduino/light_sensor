@@ -3,8 +3,9 @@
  
 int led = 13;
 int sensorPin = A0;
-int tapisserieOpen = 0;
-unsigned int sensorValue = 0;
+int tapisserieOpen;
+int firstTime = 1;
+unsigned int sensorValue;
 
 void setup() 
 {
@@ -14,45 +15,49 @@ void setup()
 }
 
 void OpenTapisserie() {
- 
   Process p;        // Create a process and call it "p"
-   p.runShellCommand("curl -d 'status=1&debug=1'  http://api.la-tapisserie.net/s");
-  p.run();      // Run the process and wait for its termination
-
-  while (p.available()>0) {
-    char c = p.read();
-    Serial.print(c);
-  }
-  // Ensure the last bit of data is sent.
-  Serial.flush();
+  p.runShellCommand("curl -d 'status=1&debug=1'  http://api.la-tapisserie.net/s");
+  //or use runShellCommandAsynchronously instead of runShellCommand
 }
 
 void closeTapisserie() {
   Process p;        // Create a process and call it "p"
-   p.runShellCommand("curl -d 'status=0&debug=1'  http://api.la-tapisserie.net/s");
-  p.run();      // Run the process and wait for its termination
- while (p.available()>0) {
-    char c = p.read();
-    Serial.print(c);
-  }
-  // Ensure the last bit of data is sent.
-  Serial.flush();
+  p.runShellCommand("curl -d 'status=0&debug=1'  http://api.la-tapisserie.net/s");
 }
 
 void loop() 
 {
         sensorValue = analogRead(sensorPin); 
-        if(sensorValue<400) {
-               if (tapisserieOpen) closeTapisserie();
+        if (firstTime) {
+           if(sensorValue<500) {
+              tapisserieOpen = 0;
+           }else {
+               tapisserieOpen = 1;
+           }
+           firstTime = 0;
+        }
+           
+        Serial.println(sensorValue, DEC);
+        if(sensorValue<500) {
+               if (tapisserieOpen) {
+                 closeTapisserie();
+                  //delay(500);
+                  Serial.println("CLOSE");
+                  tapisserieOpen = 0;
+               }
                 digitalWrite(led, LOW);
-                 tapisserieOpen = 0;
         }
         else {
-              if (tapisserieOpen == 0)  OpenTapisserie(); 
+              if (tapisserieOpen == 0) {
+                 OpenTapisserie(); 
+                 //delay(500);
+                 Serial.println("OPEN");
+                 tapisserieOpen = 1;
+              }
               digitalWrite(led,HIGH); 
-              tapisserieOpen = 1;
+            
+             
                 
         }
-        //Serial.println(sensorValue, DEC);
-        delay(300);
+        delay(200);
 }
