@@ -42,7 +42,7 @@ void closeTapisserie() {
 void loop() 
 {
         sensorValue = analogRead(sensorPin); 
-        if(sensorValue<500) {
+        if(sensorValue<400) {
                if (tapisserieOpen) closeTapisserie();
                 digitalWrite(led, LOW);
                  tapisserieOpen = 0;
