@@ -29,7 +29,7 @@ void loop()
 {
         sensorValue = analogRead(sensorPin); 
         if (firstTime) {
-           if(sensorValue<250) {
+           if(sensorValue<400) {
               tapisserieOpen = 0;
            }else {
                tapisserieOpen = 1;
@@ -38,7 +38,7 @@ void loop()
         }
            
         Serial.println(sensorValue, DEC);
-        if(sensorValue<250) {
+        if(sensorValue<400) {
                if (tapisserieOpen) {
                  closeTapisserie();
                   //delay(500);
