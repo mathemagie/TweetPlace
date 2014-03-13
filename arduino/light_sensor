@@ -41,18 +41,19 @@ void loop()
         if(sensorValue<400) {
                if (tapisserieOpen) {
                  closeTapisserie();
-                  //delay(500);
-                  Serial.println("CLOSE");
-                  tapisserieOpen = 0;
-               }
+                   Serial.println("CLOSE");
+                    tapisserieOpen = 0;
+                  delay(4000);
+                 }
                 digitalWrite(led, LOW);
         }
         else {
               if (tapisserieOpen == 0) {
                  OpenTapisserie(); 
-                 //delay(500);
+                
                  Serial.println("OPEN");
                  tapisserieOpen = 1;
+                  delay(4000);
               }
               digitalWrite(led,HIGH); 
             
@@ -60,4 +61,4 @@ void loop()
                 
         }
         delay(200);
-}
+ }
