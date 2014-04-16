@@ -39,7 +39,7 @@ void loop()
         }
            
         Serial.println(sensorValue, DEC);
-        if(sensorValue<400) {
+        if(sensorValue<700) {
                if (tapisserieOpen) {
                  closeTapisserie();
                    Serial.println("CLOSE");
