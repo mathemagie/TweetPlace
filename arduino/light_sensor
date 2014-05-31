@@ -17,7 +17,6 @@ void setup()
 void OpenTapisserie() {
   Process p;        // Create a process and call it "p"
   p.runShellCommand("curl -d 'status=1&debug=0'  http://api.la-tapisserie.net/s");
-  p.runShellCommand("curl http://mathemagie.net/train/xhr/sound.php");
   //or use runShellCommandAsynchronously instead of runShellCommand
 }
 
