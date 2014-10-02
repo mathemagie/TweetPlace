@@ -2,7 +2,7 @@
 #include <Bridge.h>
  
 int led = 13;
-#define BUTTON 7
+int BUTTON = 7;
 int tapisserieOpen;
 int start_val_bouton;
 int val_bouton = 0;
@@ -30,17 +30,19 @@ void closeTapisserie() {
 void loop() 
 {
        val_bouton = digitalRead(BUTTON);
-        Serial.println(val_bouton);
-        if(val_bouton) {
+       Serial.println(val_bouton);
+       if(val_bouton) {
+               digitalWrite(led, LOW);
                if (tapisserieOpen) {
                  closeTapisserie();
                    Serial.println("CLOSE");
                     tapisserieOpen = 0;
                   delay(4000);
                  }
-                digitalWrite(led, LOW);
+               
         }
         else {
+              digitalWrite(led,HIGH); 
               if (tapisserieOpen == 0) {
                  OpenTapisserie(); 
                 
@@ -48,7 +50,8 @@ void loop()
                  tapisserieOpen = 1;
                   delay(4000);
               }
-              digitalWrite(led,HIGH); 
+            
         }
-        delay(200);
+     
+        delay(500);
  }
